@@ -17,26 +17,26 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @PostMapping("/people")
+    @PostMapping(value ="/people")
     public ResponseEntity<Person>createPerson(@RequestBody Person p){
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.CREATED);
     }
-    @GetMapping("/people/{id}")
+    @GetMapping(value ="/people/{id}")
     public ResponseEntity<Person> getPerson(@PathVariable int id) {
         return new ResponseEntity<>(personRepository.findOne(id), HttpStatus.OK);
     }
-    @GetMapping("/people/{id}")
+    @GetMapping(value = "/people/{id}")
     public ResponseEntity<Iterable<Person>>getPersonList(){
         return new ResponseEntity<>(personRepository.findAll(), HttpStatus.OK );
     }
-    @PutMapping("/people/{id}")
+    @PutMapping(value = "/people/{id}")
     public ResponseEntity<Person>updatePerson(@PathVariable Integer id, @RequestBody Person p){
         if(p.getId() != null)
         return new ResponseEntity<>(personRepository.save(p), HttpStatus.OK);
         else
             return createPerson(p);
     }
-    @DeleteMapping("/people/{id}")
+    @DeleteMapping(value = "/people/{id}")
     public ResponseEntity DeletePerson(@PathVariable int id){
         personRepository.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
