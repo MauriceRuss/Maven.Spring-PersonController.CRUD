@@ -35,10 +35,10 @@ public class PersonController {
     }
     @PutMapping( "/{id}")
     public ResponseEntity<Person>updatePerson(@PathVariable Integer id, @RequestBody Person p){
-        if(p.getId() != null)
-        return new ResponseEntity<>(personRepository.save(p), HttpStatus.OK);
-        else
-            return createPerson(p);
+        Person person = personRepository.findOne(id);
+        person.setFirstName(p.getFirstName());
+        person.setLastName(p.getLastName());
+        return new ResponseEntity<>(personRepository.save(person), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity DeletePerson(@PathVariable int id){
